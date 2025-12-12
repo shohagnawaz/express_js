@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import path from "path";
@@ -49,13 +49,14 @@ const initDB = async () => {
 initDB();
 
 // logger middleware
-const logger = (req, res, next) => {
-    
-}
+const logger = (req: Request, res: Response, next: NextFunction) => {
+    console.log(`[${new Date().toISOString}] ${req.method} ${req.path}\n`);
+    next();
+};
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', logger, (req: Request, res: Response) => {
   res.send('Hello Next Level Developers')
-})
+});
 
 // users CRUD
 app.post("/users", async (req: Request, res: Response) => {
