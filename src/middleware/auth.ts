@@ -1,0 +1,1 @@
+// higher order function = reutrn korbe akta function k
